@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - 8080:3000
+    volumes:
+      - ./:/app
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_DATABASE: buyer
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      MYSQL_TCP_PORT: 3310
+    ports:
+      - "3310:3310"
+networks:
+  default:
+    driver: bridge
